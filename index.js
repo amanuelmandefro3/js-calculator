@@ -75,21 +75,47 @@ const equals = document.querySelector('#equals');
 
 
 let inputVal = '';
-result.value = '';
+result.value = 0;
 const inputDisplay = document.querySelector('#input');
 
 for(let input of inputBtn){
     input.addEventListener('click', ()=>{
         inputVal += input.value;
-        console.log(input.value);
+        if(['+', '-', '*', '/'].includes(inputVal[0])){
+            if(result.value !== 0){
+                inputVal = result.value + inputVal;
+                result.innerHTML = '';
+            }else{
+                inputVal = '0' + inputVal;
+            }
+            
+        }
         inputDisplay.innerHTML = inputVal;
     })
 }
 equals.addEventListener('click', ()=>{
-    if(inputVal !== ''){
-        result.innerHTML = operate(inputVal);
-        result.value = operate(inputVal);
+    let res = 0
+    if(inputVal !== '' && inputVal.length > 2){
+        res = operate(inputVal);
     }
+    else{
+        switch (inputVal[1]) {
+            case "+":
+              res = inputVal[0] + inputVal[0];
+              break;
+            case "-":
+              res = inputVal[0] - inputVal[0];
+              break;
+            case "*":
+              res = inputVal[0] * inputVal[0];
+              break;
+            case "/":
+              res = inputVal[0] / inputVal[0];
+              break;
+          }
+    }
+    result.innerHTML = res;
+    result.value = res;
     inputVal = '';
 })
 clear.addEventListener('click', ()=>{
@@ -98,7 +124,7 @@ clear.addEventListener('click', ()=>{
     result.innerHTML = '';
 })
 backspace.addEventListener('click', ()=>{
-    if(result.value !== ''){
+    if(result.value !== 0){
         inputVal = ''
         result.innerHTML = '';
     }
