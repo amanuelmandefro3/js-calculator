@@ -49,6 +49,10 @@ html, body{
 }
 #clear, #zero{
     width:calc(95%/2);
+    padding-right: 95px;
+}
+#seven, #four, #one{
+    padding-left: 22px;
 }
 button{
     width:calc(90%/4);
